@@ -10,9 +10,11 @@ if [[ $# -lt 1 ]]; then
     exit 1
 fi
 
-room="$@"
+room="${(C)@}" # Upcase the first letter of each word.
 friendly_name="$room Presence Sensor"
-name=$(echo $friendly_name | tr 'A-Z' 'a-z' | tr ' ' '-')
+
+name=${friendly_name:l} # Lower case the entire string.
+name=${name// /-} # Replace spaces with dashes.
 
 source venv-esphome/bin/activate
 
